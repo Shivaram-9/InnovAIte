@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h2>All Ideas</h2>
+    <ul id="list"></ul>
+
+    <script>
+        fetch('http://127.0.0.1:5000/ideas')
+        .then(res => res.json())
+        .then(data => {
+            let list = document.getElementById('list');
+            data.forEach(idea => {
+                let li = document.createElement('li');
+                li.innerHTML = idea.title + " - Score: " + idea.score;
+                list.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
