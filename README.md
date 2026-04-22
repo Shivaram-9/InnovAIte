@@ -75,7 +75,8 @@ InnovAIte is a web-based system where users can submit ideas, and the system eva
    ```bash
       pip install flask flask-cors
 
-2.Run backend:
+2. Run backend:
+  
   cd backend
   python app.py
 
