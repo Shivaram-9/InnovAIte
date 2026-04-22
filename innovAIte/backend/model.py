@@ -7,7 +7,7 @@ def score_idea(text):
         if word in text.lower():
             score += 20
 
-    length_score = min(len(text) // 20, 20)
-    score += length_score
+    # Length score
+    score += min(len(text) // 20, 20)
 
     return score
