@@ -1,24 +1,29 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import sqlite3
 from model import score_idea
 
 app = Flask(__name__)
+CORS(app)
 
-# Initialize DB
+# Create DB automatically
 def init_db():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS ideas
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  title TEXT,
-                  description TEXT,
-                  score INTEGER)''')
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS ideas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            description TEXT,
+            score INTEGER
+        )
+    ''')
     conn.commit()
     conn.close()
 
 init_db()
 
-# Submit Idea
+# Submit idea API
 @app.route('/submit', methods=['POST'])
 def submit_idea():
     data = request.json
@@ -34,9 +39,9 @@ def submit_idea():
     conn.commit()
     conn.close()
 
-    return jsonify({"message": "Idea submitted!", "score": score})
+    return jsonify({"message": "Idea submitted", "score": score})
 
-# Get Ideas
+# Get ideas API
 @app.route('/ideas', methods=['GET'])
 def get_ideas():
     conn = sqlite3.connect('database.db')
